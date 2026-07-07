@@ -128,3 +128,7 @@ html, body, #root {
   display: inline-block; font-size: 11px; background: #000080; color: #fff;
   padding: 1px 6px; margin: 2px 3px 2px 0; border-radius: 2px;
 }
+
+.resume-app { display: flex; flex-direction: column; height: 100%; }
+.resume-toolbar { display: flex; gap: 6px; padding: 6px; border-bottom: 1px solid #808080; }
+.resume-embed { flex: 1; width: 100%; border: none; }
