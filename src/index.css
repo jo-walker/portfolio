@@ -31,3 +31,12 @@ html, body, #root {
 
 .title-bar { cursor: default; }
 .title-bar-text { user-select: none; }
+
+.resize-handle {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 14px;
+  height: 14px;
+  cursor: nwse-resize;
+}
