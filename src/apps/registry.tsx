@@ -3,6 +3,7 @@ import { ProjectsApp } from './ProjectsApp';
 import { ProjectDetail } from './ProjectDetail';
 import { ResumeApp } from './ResumeApp';
 import { ContactApp } from './ContactApp';
+import { RecycleBinApp } from './RecycleBinApp';
 import type { ReactNode } from 'react';
 import type { AppKey, WindowState } from '../types';
 
@@ -25,16 +26,11 @@ export const WINDOW_DEFAULTS: Record<AppKey, AppDef> = {
 
 export type AppComponent = (props: { win: WindowState }) => ReactNode;
 
-const Placeholder =
-  (label: string): AppComponent =>
-  () => <p style={{ padding: 8 }}>{label} — coming soon.</p>;
-
-// Replaced with real components in Tasks 8–12.
 export const APP_REGISTRY: Record<AppKey, AppComponent> = {
   about: () => <AboutApp />,
   projects: () => <ProjectsApp />,
   projectDetail: (props) => <ProjectDetail win={props.win} />,
   resume: () => <ResumeApp />,
   contact: () => <ContactApp />,
-  recycleBin: Placeholder('Recycle Bin'),
+  recycleBin: () => <RecycleBinApp />,
 };
