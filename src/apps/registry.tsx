@@ -1,4 +1,5 @@
-import type { AppKey } from '../types';
+import type { ReactNode } from 'react';
+import type { AppKey, WindowState } from '../types';
 
 export interface AppDef {
   title: string;
@@ -15,4 +16,20 @@ export const WINDOW_DEFAULTS: Record<AppKey, AppDef> = {
   resume: { title: 'Résumé', icon: '📄', width: 560, height: 620, singleton: true },
   contact: { title: 'Contact', icon: '✉️', width: 380, height: 300, singleton: true },
   recycleBin: { title: 'Recycle Bin', icon: '🗑️', width: 420, height: 300, singleton: true },
+};
+
+export type AppComponent = (props: { win: WindowState }) => ReactNode;
+
+const Placeholder =
+  (label: string): AppComponent =>
+  () => <p style={{ padding: 8 }}>{label} — coming soon.</p>;
+
+// Replaced with real components in Tasks 8–12.
+export const APP_REGISTRY: Record<AppKey, AppComponent> = {
+  about: Placeholder('About'),
+  projects: Placeholder('Projects'),
+  projectDetail: Placeholder('Project'),
+  resume: Placeholder('Résumé'),
+  contact: Placeholder('Contact'),
+  recycleBin: Placeholder('Recycle Bin'),
 };

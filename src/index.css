@@ -40,3 +40,30 @@ html, body, #root {
   height: 14px;
   cursor: nwse-resize;
 }
+
+.desktop-icons {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 18px;
+  padding: 12px;
+  height: 100%;
+  align-content: flex-start;
+}
+.desktop-icon {
+  width: 76px;
+  background: transparent;
+  border: 1px solid transparent;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: default;
+  color: #fff;
+  padding: 4px;
+}
+.desktop-icon:active,
+.desktop-icon:focus { border: 1px dotted #fff; background: rgba(0,0,120,0.35); outline: none; }
+.desktop-icon-glyph { font-size: 30px; text-shadow: 1px 1px 0 rgba(0,0,0,.4); }
+.desktop-icon-label { font-size: 12px; text-align: center; text-shadow: 1px 1px 0 rgba(0,0,0,.5); }
