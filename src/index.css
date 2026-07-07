@@ -1,0 +1,33 @@
+:root {
+  --desktop-teal: #008080;
+  --taskbar-h: 32px;
+}
+
+html, body, #root {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Pixelated MS Sans Serif', 'MS Sans Serif', Tahoma, sans-serif;
+}
+
+.desktop {
+  position: fixed;
+  inset: 0 0 var(--taskbar-h) 0;
+  background: var(--desktop-teal);
+  overflow: hidden;
+}
+
+.window {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+}
+
+.window .window-body {
+  flex: 1;
+  overflow: auto;
+  margin: 0;
+}
+
+.title-bar { cursor: default; }
+.title-bar-text { user-select: none; }
