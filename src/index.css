@@ -114,3 +114,17 @@ html, body, #root {
 .start-menu-sep { border-top: 1px solid #808080; margin: 3px 0; }
 
 .app-pad { padding: 10px 12px; font-size: 13px; line-height: 1.5; }
+
+.folder-heading { margin: 6px 0 4px; font-size: 13px; }
+.folder-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px; }
+.folder-item {
+  width: 92px; background: none; border: 1px solid transparent; box-shadow: none;
+  display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 6px; cursor: default;
+}
+.folder-item:hover, .folder-item:focus { border: 1px dotted #000080; background: #d7e4f2; outline: none; }
+.folder-glyph { font-size: 26px; }
+.folder-label { font-size: 11px; text-align: center; }
+.chip {
+  display: inline-block; font-size: 11px; background: #000080; color: #fff;
+  padding: 1px 6px; margin: 2px 3px 2px 0; border-radius: 2px;
+}
