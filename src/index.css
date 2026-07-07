@@ -134,3 +134,9 @@ html, body, #root {
 .resume-embed { flex: 1; width: 100%; border: none; }
 
 .contact-list { list-style: none; padding: 0; margin: 10px 0; font-size: 14px; line-height: 2; }
+
+@media (max-width: 768px) {
+  .desktop-icons { flex-direction: row; }
+  .task-button { max-width: 44vw; }
+  .start-menu { width: 70vw; }
+}
