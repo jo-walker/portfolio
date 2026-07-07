@@ -1,0 +1,142 @@
+:root {
+  --desktop-teal: #008080;
+  --taskbar-h: 32px;
+}
+
+html, body, #root {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Pixelated MS Sans Serif', 'MS Sans Serif', Tahoma, sans-serif;
+}
+
+.desktop {
+  position: fixed;
+  inset: 0 0 var(--taskbar-h) 0;
+  background: var(--desktop-teal);
+  overflow: hidden;
+}
+
+.window {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+}
+
+.window .window-body {
+  flex: 1;
+  overflow: auto;
+  margin: 0;
+}
+
+.title-bar { cursor: default; }
+.title-bar-text { user-select: none; }
+
+.resize-handle {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 14px;
+  height: 14px;
+  cursor: nwse-resize;
+}
+
+.desktop-icons {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 18px;
+  padding: 12px;
+  height: 100%;
+  align-content: flex-start;
+}
+.desktop-icon {
+  width: 76px;
+  background: transparent;
+  border: 1px solid transparent;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: default;
+  color: #fff;
+  padding: 4px;
+}
+.desktop-icon:active,
+.desktop-icon:focus { border: 1px dotted #fff; background: rgba(0,0,120,0.35); outline: none; }
+.desktop-icon-glyph { font-size: 30px; text-shadow: 1px 1px 0 rgba(0,0,0,.4); }
+.desktop-icon-label { font-size: 12px; text-align: center; text-shadow: 1px 1px 0 rgba(0,0,0,.5); }
+
+.taskbar {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  height: var(--taskbar-h);
+  background: #c0c0c0;
+  border-top: 2px solid #dfdfdf;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 4px;
+  box-sizing: border-box;
+  z-index: 10000;
+}
+.start-button { font-weight: bold; }
+.taskbar-windows { display: flex; gap: 4px; flex: 1; overflow: hidden; }
+.task-button {
+  max-width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: left;
+}
+.task-button.active { border-style: inset; font-weight: bold; }
+.clock { border: 1px inset #808080; padding: 2px 6px; font-size: 12px; }
+.start-menu {
+  position: fixed;
+  left: 4px;
+  bottom: var(--taskbar-h);
+  width: 180px;
+  background: #c0c0c0;
+  border: 2px solid #dfdfdf;
+  border-right-color: #000; border-bottom-color: #000;
+  box-shadow: 2px 2px 0 rgba(0,0,0,.4);
+  z-index: 10001;
+  display: flex;
+}
+.start-menu-banner {
+  writing-mode: vertical-rl; transform: rotate(180deg);
+  background: linear-gradient(#000080, #1084d0); color: #fff;
+  font-weight: bold; padding: 8px 4px; font-size: 14px;
+}
+.start-menu ul { list-style: none; margin: 0; padding: 2px; flex: 1; }
+.start-menu li button, .start-menu li a {
+  display: block; width: 100%; text-align: left; background: none; border: none; box-shadow: none;
+  padding: 5px 8px; font-size: 12px; color: #000; text-decoration: none; cursor: default;
+}
+.start-menu li button:hover, .start-menu li a:hover { background: #000080; color: #fff; }
+.start-menu-sep { border-top: 1px solid #808080; margin: 3px 0; }
+
+.app-pad { padding: 10px 12px; font-size: 13px; line-height: 1.5; }
+
+.folder-heading { margin: 6px 0 4px; font-size: 13px; }
+.folder-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px; }
+.folder-item {
+  width: 92px; background: none; border: 1px solid transparent; box-shadow: none;
+  display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 6px; cursor: default;
+}
+.folder-item:hover, .folder-item:focus { border: 1px dotted #000080; background: #d7e4f2; outline: none; }
+.folder-glyph { font-size: 26px; }
+.folder-label { font-size: 11px; text-align: center; }
+.chip {
+  display: inline-block; font-size: 11px; background: #000080; color: #fff;
+  padding: 1px 6px; margin: 2px 3px 2px 0; border-radius: 2px;
+}
+
+.resume-app { display: flex; flex-direction: column; height: 100%; }
+.resume-toolbar { display: flex; gap: 6px; padding: 6px; border-bottom: 1px solid #808080; }
+.resume-embed { flex: 1; width: 100%; border: none; }
+
+.contact-list { list-style: none; padding: 0; margin: 10px 0; font-size: 14px; line-height: 2; }
+
+@media (max-width: 768px) {
+  .desktop-icons { flex-direction: row; }
+  .task-button { max-width: 44vw; }
+  .start-menu { width: 70vw; }
+}
