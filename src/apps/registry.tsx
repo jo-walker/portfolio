@@ -2,6 +2,7 @@ import { AboutApp } from './AboutApp';
 import { ProjectsApp } from './ProjectsApp';
 import { ProjectDetail } from './ProjectDetail';
 import { ResumeApp } from './ResumeApp';
+import { ContactApp } from './ContactApp';
 import type { ReactNode } from 'react';
 import type { AppKey, WindowState } from '../types';
 
@@ -34,6 +35,6 @@ export const APP_REGISTRY: Record<AppKey, AppComponent> = {
   projects: () => <ProjectsApp />,
   projectDetail: (props) => <ProjectDetail win={props.win} />,
   resume: () => <ResumeApp />,
-  contact: Placeholder('Contact'),
+  contact: () => <ContactApp />,
   recycleBin: Placeholder('Recycle Bin'),
 };

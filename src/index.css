@@ -132,3 +132,5 @@ html, body, #root {
 .resume-app { display: flex; flex-direction: column; height: 100%; }
 .resume-toolbar { display: flex; gap: 6px; padding: 6px; border-bottom: 1px solid #808080; }
 .resume-embed { flex: 1; width: 100%; border: none; }
+
+.contact-list { list-style: none; padding: 0; margin: 10px 0; font-size: 14px; line-height: 2; }
