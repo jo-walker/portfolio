@@ -112,3 +112,5 @@ html, body, #root {
 }
 .start-menu li button:hover, .start-menu li a:hover { background: #000080; color: #fff; }
 .start-menu-sep { border-top: 1px solid #808080; margin: 3px 0; }
+
+.app-pad { padding: 10px 12px; font-size: 13px; line-height: 1.5; }

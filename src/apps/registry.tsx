@@ -1,3 +1,4 @@
+import { AboutApp } from './AboutApp';
 import type { ReactNode } from 'react';
 import type { AppKey, WindowState } from '../types';
 
@@ -26,7 +27,7 @@ const Placeholder =
 
 // Replaced with real components in Tasks 8–12.
 export const APP_REGISTRY: Record<AppKey, AppComponent> = {
-  about: Placeholder('About'),
+  about: () => <AboutApp />,
   projects: Placeholder('Projects'),
   projectDetail: Placeholder('Project'),
   resume: Placeholder('Résumé'),
