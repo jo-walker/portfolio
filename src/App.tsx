@@ -1,3 +1,12 @@
+import { WindowManagerProvider } from './window-manager/WindowManagerContext';
+import { Desktop } from './shell/Desktop';
+import { Taskbar } from './shell/Taskbar';
+
 export function App() {
-  return <div className="desktop" />;
+  return (
+    <WindowManagerProvider>
+      <Desktop />
+      <Taskbar />
+    </WindowManagerProvider>
+  );
 }
