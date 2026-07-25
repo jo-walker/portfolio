@@ -4,6 +4,8 @@ import { ProjectDetail } from './ProjectDetail';
 import { ResumeApp } from './ResumeApp';
 import { ContactApp } from './ContactApp';
 import { RecycleBinApp } from './RecycleBinApp';
+import { TerminalApp } from './terminal/TerminalApp';
+import { WelcomeApp } from './WelcomeApp';
 import type { ReactNode } from 'react';
 import type { AppKey, WindowState } from '../types';
 
@@ -22,6 +24,8 @@ export const WINDOW_DEFAULTS: Record<AppKey, AppDef> = {
   resume: { title: 'Résumé', icon: '📄', width: 560, height: 620, singleton: true },
   contact: { title: 'Contact', icon: '✉️', width: 380, height: 300, singleton: true },
   recycleBin: { title: 'Recycle Bin', icon: '🗑️', width: 420, height: 300, singleton: true },
+  terminal: { title: 'Jo-DOS Prompt', icon: '🖥️', width: 560, height: 380 },
+  welcome: { title: 'Welcome', icon: '👋', width: 440, height: 340, singleton: true },
 };
 
 export type AppComponent = (props: { win: WindowState }) => ReactNode;
@@ -33,4 +37,6 @@ export const APP_REGISTRY: Record<AppKey, AppComponent> = {
   resume: () => <ResumeApp />,
   contact: () => <ContactApp />,
   recycleBin: () => <RecycleBinApp />,
+  terminal: () => <TerminalApp />,
+  welcome: () => <WelcomeApp />,
 };
