@@ -42,6 +42,8 @@ html, body, #root {
 }
 
 .desktop-icons {
+  position: absolute;
+  inset: 0;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;

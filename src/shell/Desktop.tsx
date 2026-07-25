@@ -1,9 +1,11 @@
+import { useState } from 'react';
 import type { AppKey } from '../types';
 import { useWindowManager } from '../window-manager/WindowManagerContext';
 import { useIsMobile } from '../window-manager/useMediaQuery';
 import { Window } from '../window-manager/Window';
 import { DesktopIcon } from './DesktopIcon';
 import { APP_REGISTRY, WINDOW_DEFAULTS } from '../apps/registry';
+import { defaultPosition, loadPositions, savePosition, type Point } from './iconLayout';
 
 const DESKTOP_ICONS: AppKey[] = ['about', 'projects', 'resume', 'contact', 'terminal', 'recycleBin'];
 
@@ -11,6 +13,20 @@ export function Desktop() {
   const wm = useWindowManager();
   const isMobile = useIsMobile();
   const { state } = wm;
+
+  const [positions, setPositions] = useState<Record<string, Point>>(() => {
+    const saved = loadPositions();
+    const initial: Record<string, Point> = {};
+    DESKTOP_ICONS.forEach((key, i) => {
+      initial[key] = saved[key] ?? defaultPosition(i);
+    });
+    return initial;
+  });
+
+  const moveIcon = (key: AppKey, point: Point) => {
+    setPositions((prev) => ({ ...prev, [key]: point }));
+    savePosition(key, point);
+  };
 
   return (
     <div className="desktop">
@@ -20,7 +36,9 @@ export function Desktop() {
             key={key}
             icon={WINDOW_DEFAULTS[key].icon}
             label={WINDOW_DEFAULTS[key].title}
+            position={positions[key]}
             onOpen={() => wm.openApp(key)}
+            onMove={(p) => moveIcon(key, p)}
           />
         ))}
       </div>
