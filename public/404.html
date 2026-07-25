@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 — Illegal Operation</title>
+    <link rel="icon" type="image/svg+xml" href="/portfolio/favicon.svg" />
+    <style>
+      body { margin: 0; height: 100vh; display: flex; align-items: center; justify-content: center;
+        background: #008080; font-family: "Segoe UI", Tahoma, sans-serif; }
+      .win { width: 460px; max-width: 92vw; background: #c0c0c0;
+        border: 2px solid #fff; border-right-color: #000; border-bottom-color: #000; }
+      .title { background: linear-gradient(90deg, #000080, #1084d0); color: #fff; font-weight: 700;
+        padding: 6px 10px; display: flex; justify-content: space-between; }
+      .body { padding: 20px; font-size: 14px; color: #000; }
+      .row { display: flex; gap: 14px; align-items: flex-start; }
+      .ico { font-size: 34px; }
+      .actions { margin-top: 22px; text-align: center; }
+      a.btn { display: inline-block; text-decoration: none; color: #000; background: #c0c0c0;
+        border: 2px solid #fff; border-right-color: #000; border-bottom-color: #000;
+        padding: 6px 22px; font-size: 14px; }
+    </style>
+  </head>
+  <body>
+    <div class="win" role="alertdialog" aria-labelledby="t">
+      <div class="title"><span id="t">Jo 95</span><span aria-hidden>✕</span></div>
+      <div class="body">
+        <div class="row">
+          <span class="ico" aria-hidden>⚠️</span>
+          <div>
+            <p>This program has performed an illegal operation and will be shut down.</p>
+            <p>The page you asked for doesn't exist on this desktop.</p>
+          </div>
+        </div>
+        <div class="actions"><a class="btn" href="/portfolio/">Return to Desktop</a></div>
+      </div>
+    </div>
+  </body>
+</html>
