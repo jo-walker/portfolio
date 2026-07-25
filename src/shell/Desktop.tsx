@@ -23,7 +23,12 @@ export function Desktop() {
     return initial;
   });
 
+  // Live update during a drag (cheap, state only); persistence happens on drop.
   const moveIcon = (key: AppKey, point: Point) => {
+    setPositions((prev) => ({ ...prev, [key]: point }));
+  };
+
+  const commitIcon = (key: AppKey, point: Point) => {
     setPositions((prev) => ({ ...prev, [key]: point }));
     savePosition(key, point);
   };
@@ -37,8 +42,10 @@ export function Desktop() {
             icon={WINDOW_DEFAULTS[key].icon}
             label={WINDOW_DEFAULTS[key].title}
             position={positions[key]}
+            draggable={!isMobile}
             onOpen={() => wm.openApp(key)}
             onMove={(p) => moveIcon(key, p)}
+            onMoveEnd={(p) => commitIcon(key, p)}
           />
         ))}
       </div>

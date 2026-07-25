@@ -41,6 +41,9 @@ html, body, #root {
   cursor: nwse-resize;
 }
 
+/* On desktop, icons are absolutely positioned (draggable) so this container is just
+   their offset parent. On mobile (see media query below) icons flow, and the flex
+   rules here govern their layout. */
 .desktop-icons {
   position: absolute;
   inset: 0;

@@ -15,7 +15,7 @@ function prefersReducedMotion(): boolean {
 }
 
 function Shell() {
-  const wm = useWindowManager();
+  const { openApp } = useWindowManager();
   const [booting, setBooting] = useState(() =>
     shouldBoot({
       search: window.location.search,
@@ -30,9 +30,9 @@ function Shell() {
     session.set('booted', true);
     if (shouldAutoWelcome({ search: window.location.search, welcomed: storage.get('welcomed', false) })) {
       storage.set('welcomed', true);
-      wm.openApp('welcome');
+      openApp('welcome');
     }
-  }, [booting, wm]);
+  }, [booting, openApp]);
 
   return (
     <>
