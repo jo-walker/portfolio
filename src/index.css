@@ -148,3 +148,7 @@ html, body, #root {
 .terminal-input { flex: 1; background: transparent; border: none; color: #c0c0c0;
   font-family: inherit; font-size: inherit; outline: none; }
 .terminal-form { display: flex; gap: 6px; align-items: center; }
+
+.welcome-title { margin: 0 0 8px; }
+.welcome-ctas { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.welcome-ctas button { min-width: 130px; }
