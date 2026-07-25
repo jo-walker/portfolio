@@ -152,3 +152,15 @@ html, body, #root {
 .welcome-title { margin: 0 0 8px; }
 .welcome-ctas { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
 .welcome-ctas button { min-width: 130px; }
+
+.boot { position: fixed; inset: 0; z-index: 9999; background: #000; color: #c0c0c0;
+  font-family: "Consolas", "Courier New", monospace; display: flex; flex-direction: column;
+  justify-content: center; align-items: center; gap: 24px; cursor: pointer; }
+.boot-post { align-self: flex-start; margin: 0; padding: 24px; font-size: 13px; line-height: 1.5; }
+.boot-splash { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.boot-logo { font-size: 40px; font-weight: 700; }
+.boot-status { font-size: 15px; animation: boot-blink 1s steps(2, start) infinite; }
+.boot-skip { position: fixed; bottom: 24px; right: 24px; background: none; border: none;
+  color: #808080; font-family: inherit; cursor: pointer; }
+@keyframes boot-blink { to { opacity: 0.3; } }
+@media (prefers-reduced-motion: reduce) { .boot-status { animation: none; } }
