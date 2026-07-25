@@ -140,3 +140,11 @@ html, body, #root {
   .task-button { max-width: 44vw; }
   .start-menu { width: 70vw; }
 }
+
+.terminal { display: flex; flex-direction: column; height: 100%; background: #000; color: #c0c0c0;
+  font-family: "Consolas", "Courier New", monospace; font-size: 13px; padding: 6px; }
+.terminal-log { flex: 1; overflow-y: auto; white-space: pre-wrap; }
+.terminal-line { line-height: 1.35; }
+.terminal-input { flex: 1; background: transparent; border: none; color: #c0c0c0;
+  font-family: inherit; font-size: inherit; outline: none; }
+.terminal-form { display: flex; gap: 6px; align-items: center; }
