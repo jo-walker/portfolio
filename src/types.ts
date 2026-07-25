@@ -4,7 +4,9 @@ export type AppKey =
   | 'projectDetail'
   | 'resume'
   | 'contact'
-  | 'recycleBin';
+  | 'recycleBin'
+  | 'terminal'
+  | 'welcome';
 
 export interface Rect {
   x: number;

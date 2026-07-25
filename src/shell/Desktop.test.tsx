@@ -7,7 +7,7 @@ import { Desktop } from './Desktop';
 describe('Desktop', () => {
   it('renders all core desktop icons', () => {
     render(<WindowManagerProvider><Desktop /></WindowManagerProvider>);
-    ['About Me', 'My Projects', 'Résumé', 'Contact', 'Recycle Bin'].forEach((label) => {
+    ['About Me', 'My Projects', 'Résumé', 'Contact', 'Jo-DOS Prompt', 'Recycle Bin'].forEach((label) => {
       expect(screen.getByText(label)).toBeInTheDocument();
     });
   });

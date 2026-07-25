@@ -11,6 +11,8 @@ const ITEMS: { key: AppKey; label: string }[] = [
   { key: 'projects', label: '📁 Projects' },
   { key: 'resume', label: '📄 Résumé' },
   { key: 'contact', label: '✉️ Contact' },
+  { key: 'terminal', label: '🖥️ Jo-DOS Prompt' },
+  { key: 'welcome', label: '👋 Welcome' },
 ];
 
 export function StartMenu({ onOpen, onClose }: StartMenuProps) {
