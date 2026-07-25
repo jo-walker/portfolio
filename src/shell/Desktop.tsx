@@ -5,7 +5,7 @@ import { Window } from '../window-manager/Window';
 import { DesktopIcon } from './DesktopIcon';
 import { APP_REGISTRY, WINDOW_DEFAULTS } from '../apps/registry';
 
-const DESKTOP_ICONS: AppKey[] = ['about', 'projects', 'resume', 'contact', 'recycleBin'];
+const DESKTOP_ICONS: AppKey[] = ['about', 'projects', 'resume', 'contact', 'terminal', 'recycleBin'];
 
 export function Desktop() {
   const wm = useWindowManager();
