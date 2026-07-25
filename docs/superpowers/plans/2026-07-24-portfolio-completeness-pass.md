@@ -483,7 +483,7 @@ interface Line {
 
 const BANNER: Line[] = [
   { id: 0, text: 'Jo-DOS [Version 9.5.1998]', kind: 'output' },
-  { id: 1, text: '(C) Jo Gurvantamir. Type "help" to begin.', kind: 'output' },
+  { id: 1, text: '(C) 1998 Gurvantamir Systems. Type "help" to begin.', kind: 'output' },
   { id: 2, text: '', kind: 'output' },
 ];
 
