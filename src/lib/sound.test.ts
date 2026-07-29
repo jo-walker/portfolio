@@ -2,12 +2,14 @@ import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { isEnabled, setEnabled, play, resetForTests } from './sound';
 
 /** Minimal Web Audio stub — enough to record that notes were scheduled. */
-function stubAudio() {
+function stubAudio(state: AudioContextState | undefined = undefined) {
   const started: number[] = [];
+  const resume = vi.fn();
   const ctor = vi.fn(() => ({
     currentTime: 0,
     destination: {},
-    resume: vi.fn(),
+    state,
+    resume,
     createOscillator: () => ({
       type: '',
       frequency: { value: 0 },
@@ -21,7 +23,7 @@ function stubAudio() {
     }),
   }));
   (window as unknown as { AudioContext: unknown }).AudioContext = ctor;
-  return { started, ctor };
+  return { started, ctor, resume };
 }
 
 describe('sound', () => {
@@ -71,6 +73,18 @@ describe('sound', () => {
     localStorage.setItem('jo95:sound', 'true');
     expect(isEnabled()).toBe(true);
     expect(() => play('startup')).not.toThrow();
+  });
+
+  it('resumes a suspended context so returning visitors still hear it', () => {
+    // Repeat visit: sound was already on, so the context is built at mount with
+    // no gesture behind it and starts suspended.
+    localStorage.setItem('jo95:sound', 'true');
+    const { resume, started } = stubAudio('suspended');
+
+    play('open');
+
+    expect(resume).toHaveBeenCalled();
+    expect(started).toHaveLength(1);
   });
 
   it('survives an audio context that throws', () => {

@@ -42,10 +42,6 @@ html, body, #root {
     100% 100%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .desktop { transition: background-color .3s ease; }
-}
-
 .window {
   position: absolute;
   display: flex;

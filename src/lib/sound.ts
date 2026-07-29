@@ -59,6 +59,11 @@ export function play(name: SoundName): void {
   if (!audio) return;
 
   try {
+    // A returning visitor already has sound enabled, so the first play() happens
+    // at mount with no gesture behind it and the context is born suspended.
+    // Resume on every play: the first one driven by a real interaction unsticks it.
+    if (audio.state === 'suspended') audio.resume?.();
+
     const now = audio.currentTime;
     for (const note of VOICES[name]) {
       const osc = audio.createOscillator();
