@@ -13,6 +13,7 @@ const ITEMS: { key: AppKey; label: string }[] = [
   { key: 'contact', label: '✉️ Contact' },
   { key: 'terminal', label: '🖥️ Jo-DOS Prompt' },
   { key: 'welcome', label: '👋 Welcome' },
+  { key: 'display', label: '🖼️ Display Properties' },
 ];
 
 export function StartMenu({ onOpen, onClose }: StartMenuProps) {

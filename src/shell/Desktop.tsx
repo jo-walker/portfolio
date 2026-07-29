@@ -1,7 +1,9 @@
 import { useState, type MouseEvent as ReactMouseEvent } from 'react';
 import type { AppKey } from '../types';
 import { useWindowManager } from '../window-manager/WindowManagerContext';
-import { useIsMobile } from '../window-manager/useMediaQuery';
+import { useIsMobile, useReducedMotion } from '../window-manager/useMediaQuery';
+import { useDisplay } from './DisplayContext';
+import { backgroundStyle, showsClouds } from './display';
 import { Window } from '../window-manager/Window';
 import { DesktopIcon } from './DesktopIcon';
 import { ContextMenu, type MenuItem } from './ContextMenu';
@@ -13,6 +15,8 @@ const DESKTOP_ICONS: AppKey[] = ['about', 'projects', 'resume', 'contact', 'term
 export function Desktop() {
   const wm = useWindowManager();
   const isMobile = useIsMobile();
+  const reducedMotion = useReducedMotion();
+  const { settings } = useDisplay();
   const { state } = wm;
 
   const [positions, setPositions] = useState<Record<string, Point>>(() => {
@@ -50,6 +54,7 @@ export function Desktop() {
     { label: 'Open Jo-DOS Prompt', onSelect: () => wm.openApp('terminal') },
     { label: 'Close All Windows', onSelect: wm.closeAll },
     { label: 'About This Desktop', onSelect: () => wm.openApp('welcome'), separatorBefore: true },
+    { label: 'Properties', onSelect: () => wm.openApp('display') },
   ];
 
   // Only the bare desktop gets our menu. Anywhere inside a window (terminal input,
@@ -64,7 +69,13 @@ export function Desktop() {
   };
 
   return (
-    <div className="desktop" onContextMenu={onContextMenu}>
+    <div className="desktop" onContextMenu={onContextMenu} style={backgroundStyle(settings)}>
+      {/* Both are inert and sit under the icons. The dither is a separate layer
+          rather than a background layer so it also covers the drifting clouds —
+          everything on the desktop shares one 256-colour crosshatch. */}
+      {showsClouds(settings, reducedMotion) && <div className="desktop-clouds" aria-hidden />}
+      <div className="desktop-dither" aria-hidden />
+
       <div className="desktop-icons">
         {DESKTOP_ICONS.map((key) => (
           <DesktopIcon

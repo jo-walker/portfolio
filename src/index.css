@@ -11,21 +11,58 @@ html, body, #root {
 }
 
 /* Jo's own steppe photo, sitting where XP's Bliss would go on a Win95 desktop.
-   Layered under it: a 2px dither checkerboard (the artefact a 256-colour
-   palette would give you) and a soft top-left shade so white icon labels stay
-   legible against the bright sky. Teal shows through until the image loads. */
+   The background itself is set inline from Display Properties (see
+   shell/display.ts); what stays here is everything that doesn't vary.
+
+   image-rendering: pixelated is load-bearing: the wallpaper is a deliberately
+   small 800px dithered image, so it must scale up with hard nearest-neighbour
+   edges. Smoothed, it would just look like a low-res photo. */
 .desktop {
   position: fixed;
   inset: 0 0 var(--taskbar-h) 0;
   overflow: hidden;
   background-color: var(--desktop-teal);
+  image-rendering: pixelated;
+}
+
+/* 2px checkerboard — the artefact a 256-colour palette leaves behind. Sits
+   above the wallpaper and the clouds so everything shares one grain. */
+.desktop-dither,
+.display-dither {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: repeating-conic-gradient(rgba(255, 255, 255, .05) 0% 25%, transparent 0% 50%);
+  background-size: 4px 4px;
+}
+
+/* Synthetic haze drifting across the sky. Deliberately NOT the photo itself:
+   translating dithered pixels under nearest-neighbour sampling makes the grain
+   crawl and shimmer. Soft gradients move cleanly; the dither layer above
+   re-grains them so they still match the wallpaper. */
+.desktop-clouds {
+  position: absolute;
+  inset: -5% -60% auto -60%;
+  height: 62%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: .5;
   background-image:
-    repeating-conic-gradient(rgba(255, 255, 255, .05) 0% 25%, transparent 0% 50%),
-    linear-gradient(160deg, rgba(0, 40, 60, .42) 0%, rgba(0, 40, 60, .10) 45%, transparent 70%),
-    url('/wallpaper.jpg');
-  background-size: 4px 4px, 100% 100%, cover;
-  background-position: center, center, center;
-  background-repeat: repeat, no-repeat, no-repeat;
+    radial-gradient(ellipse 22% 44% at 18% 42%, rgba(255, 255, 255, .55), transparent 70%),
+    radial-gradient(ellipse 16% 32% at 44% 24%, rgba(255, 255, 255, .40), transparent 70%),
+    radial-gradient(ellipse 26% 38% at 71% 52%, rgba(255, 255, 255, .48), transparent 70%),
+    radial-gradient(ellipse 14% 28% at 89% 30%, rgba(255, 255, 255, .34), transparent 70%);
+  animation: cloud-drift 240s linear infinite;
+}
+
+@keyframes cloud-drift {
+  from { transform: translateX(0); }
+  to   { transform: translateX(38%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .desktop-clouds { animation: none; }
 }
 
 .window {
@@ -230,3 +267,55 @@ html, body, #root {
   font-size: 13px;
   line-height: 1;
 }
+
+/* ---- Display Properties applet ------------------------------------------ */
+.display-app { display: flex; flex-direction: column; gap: 10px; }
+
+/* The little CRT preview from the real Win95 applet: a grey bezel around a
+   sunken screen, on a stubby stand. */
+.display-monitor { align-self: center; }
+.display-bezel {
+  padding: 10px 10px 14px;
+  background: #c0c0c0;
+  border: 2px solid #fff;
+  border-right-color: #404040;
+  border-bottom-color: #404040;
+  box-shadow: inset -1px -1px 0 #808080;
+}
+.display-screen {
+  position: relative;
+  width: 176px;
+  height: 132px;
+  overflow: hidden;
+  image-rendering: pixelated;
+  border: 2px solid #808080;
+  border-right-color: #fff;
+  border-bottom-color: #fff;
+  box-shadow: inset 1px 1px 0 #000;
+}
+.display-stand {
+  width: 64px;
+  height: 10px;
+  margin: 0 auto;
+  background: #c0c0c0;
+  border: 2px solid #fff;
+  border-right-color: #404040;
+  border-bottom-color: #404040;
+}
+/* The preview is a miniature, so its clouds must not be a 240s crawl. */
+.display-screen .desktop-clouds { animation-duration: 40s; }
+
+.display-controls { display: flex; gap: 10px; align-items: flex-start; }
+.display-controls fieldset { flex: 1; min-width: 0; }
+.display-list { list-style: none; margin: 0; padding: 2px; height: 96px; overflow-y: auto;
+  background: #fff; border: 1px solid #808080; box-shadow: inset 1px 1px 0 #000; }
+.display-list button {
+  display: block; width: 100%; text-align: left; padding: 2px 6px; font-size: 12px;
+  background: none; border: none; box-shadow: none; color: #000;
+}
+.display-list button.selected { background: #000080; color: #fff; }
+.field-row { display: flex; align-items: center; gap: 6px; margin: 3px 0; font-size: 12px; }
+.field-row label { cursor: default; }
+.field-row input:disabled + label { color: #808080; }
+.display-animate { margin-top: 10px; padding-top: 8px; border-top: 1px solid #808080; }
+.display-note { margin: 4px 0 0; font-size: 11px; color: #555; line-height: 1.35; }

@@ -4,7 +4,7 @@ import { projects } from '../data/projects';
 export const OPEN_PARAM = 'open';
 
 /** Apps that make sense as a shareable entry point. */
-const LINKABLE: AppKey[] = ['about', 'projects', 'resume', 'contact', 'terminal', 'recycleBin'];
+const LINKABLE: AppKey[] = ['about', 'projects', 'resume', 'contact', 'terminal', 'recycleBin', 'display'];
 
 export interface DeepLinkTarget {
   appKey: AppKey;
