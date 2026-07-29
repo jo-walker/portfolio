@@ -6,7 +6,8 @@ export type AppKey =
   | 'contact'
   | 'recycleBin'
   | 'terminal'
-  | 'welcome';
+  | 'welcome'
+  | 'display';
 
 export interface Rect {
   x: number;

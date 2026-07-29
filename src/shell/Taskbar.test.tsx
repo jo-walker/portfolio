@@ -2,15 +2,18 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { WindowManagerProvider } from '../window-manager/WindowManagerContext';
+import { DisplayProvider } from './DisplayContext';
 import { Desktop } from './Desktop';
 import { Taskbar } from './Taskbar';
 
 function App() {
   return (
-    <WindowManagerProvider>
-      <Desktop />
-      <Taskbar />
-    </WindowManagerProvider>
+    <DisplayProvider>
+      <WindowManagerProvider>
+        <Desktop />
+        <Taskbar />
+      </WindowManagerProvider>
+    </DisplayProvider>
   );
 }
 

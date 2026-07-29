@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { WindowManagerProvider, useWindowManager } from './window-manager/WindowManagerContext';
 import { Desktop } from './shell/Desktop';
+import { DisplayProvider } from './shell/DisplayContext';
 import { Taskbar } from './shell/Taskbar';
 import { BootScreen } from './shell/BootScreen';
 import { shouldBoot, shouldAutoWelcome } from './shell/boot';
@@ -67,8 +68,10 @@ function Shell() {
 
 export function App() {
   return (
-    <WindowManagerProvider>
-      <Shell />
-    </WindowManagerProvider>
+    <DisplayProvider>
+      <WindowManagerProvider>
+        <Shell />
+      </WindowManagerProvider>
+    </DisplayProvider>
   );
 }
