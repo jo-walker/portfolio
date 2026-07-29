@@ -10,11 +10,22 @@ html, body, #root {
   font-family: 'Pixelated MS Sans Serif', 'MS Sans Serif', Tahoma, sans-serif;
 }
 
+/* Jo's own steppe photo, sitting where XP's Bliss would go on a Win95 desktop.
+   Layered under it: a 2px dither checkerboard (the artefact a 256-colour
+   palette would give you) and a soft top-left shade so white icon labels stay
+   legible against the bright sky. Teal shows through until the image loads. */
 .desktop {
   position: fixed;
   inset: 0 0 var(--taskbar-h) 0;
-  background: var(--desktop-teal);
   overflow: hidden;
+  background-color: var(--desktop-teal);
+  background-image:
+    repeating-conic-gradient(rgba(255, 255, 255, .05) 0% 25%, transparent 0% 50%),
+    linear-gradient(160deg, rgba(0, 40, 60, .42) 0%, rgba(0, 40, 60, .10) 45%, transparent 70%),
+    url('/wallpaper.jpg');
+  background-size: 4px 4px, 100% 100%, cover;
+  background-position: center, center, center;
+  background-repeat: repeat, no-repeat, no-repeat;
 }
 
 .window {
@@ -157,6 +168,13 @@ html, body, #root {
 .welcome-title { margin: 0 0 8px; }
 .welcome-ctas { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
 .welcome-ctas button { min-width: 130px; }
+.welcome-credit {
+  margin: 18px 0 0;
+  padding-top: 8px;
+  border-top: 1px solid #808080;
+  font-size: 11px;
+  color: #444;
+}
 
 .boot { position: fixed; inset: 0; z-index: 9999; background: #000; color: #c0c0c0;
   font-family: "Consolas", "Courier New", monospace; display: flex; flex-direction: column;
@@ -169,3 +187,46 @@ html, body, #root {
   color: #808080; font-family: inherit; cursor: pointer; }
 @keyframes boot-blink { to { opacity: 0.3; } }
 @media (prefers-reduced-motion: reduce) { .boot-status { animation: none; } }
+
+/* ---- Desktop context menu ---------------------------------------------- */
+.context-menu {
+  position: fixed;
+  z-index: 9000;
+  margin: 0;
+  padding: 3px 0;
+  list-style: none;
+  background: #c0c0c0;
+  border: 1px solid #000;
+  box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #808080, 2px 2px 0 rgba(0, 0, 0, .35);
+}
+.context-menu li.has-separator {
+  border-top: 1px solid #808080;
+  box-shadow: 0 -1px 0 #fff inset;
+  margin-top: 3px;
+  padding-top: 3px;
+}
+.context-menu button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 3px 18px;
+  font-size: 12px;
+  background: none;
+  border: none;
+  box-shadow: none;
+  color: #000;
+}
+.context-menu button:hover,
+.context-menu button:focus {
+  background: #000080;
+  color: #fff;
+  outline: none;
+}
+
+/* ---- Taskbar tray ------------------------------------------------------- */
+.tray-button {
+  min-width: 0;
+  padding: 1px 6px;
+  font-size: 13px;
+  line-height: 1;
+}

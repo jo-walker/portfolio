@@ -17,4 +17,40 @@ describe('Desktop', () => {
     await userEvent.dblClick(screen.getByText('About Me'));
     expect(screen.getByRole('dialog', { name: 'About Me' })).toBeInTheDocument();
   });
+
+  it('right-clicking the desktop background opens the context menu', async () => {
+    const { container } = render(<WindowManagerProvider><Desktop /></WindowManagerProvider>);
+    await userEvent.pointer({ target: container.querySelector('.desktop')!, keys: '[MouseRight]' });
+    expect(screen.getByRole('menu', { name: 'Desktop' })).toBeInTheDocument();
+  });
+
+  it('right-clicking inside a window leaves the native menu alone', async () => {
+    const { container } = render(<WindowManagerProvider><Desktop /></WindowManagerProvider>);
+    await userEvent.dblClick(screen.getByText('About Me'));
+    await userEvent.pointer({ target: screen.getByRole('dialog', { name: 'About Me' }), keys: '[MouseRight]' });
+    expect(screen.queryByRole('menu', { name: 'Desktop' })).not.toBeInTheDocument();
+    expect(container).toBeTruthy();
+  });
+
+  it('Close All Windows closes every open window', async () => {
+    const { container } = render(<WindowManagerProvider><Desktop /></WindowManagerProvider>);
+    await userEvent.dblClick(screen.getByText('About Me'));
+    await userEvent.dblClick(screen.getByText('Contact'));
+    expect(screen.getAllByRole('dialog')).toHaveLength(2);
+
+    await userEvent.pointer({ target: container.querySelector('.desktop')!, keys: '[MouseRight]' });
+    await userEvent.click(screen.getByRole('menuitem', { name: 'Close All Windows' }));
+
+    expect(screen.queryAllByRole('dialog')).toHaveLength(0);
+  });
+
+  it('Arrange Icons clears the persisted layout', async () => {
+    localStorage.setItem('jo95:iconPositions', JSON.stringify({ about: { x: 400, y: 300 } }));
+    const { container } = render(<WindowManagerProvider><Desktop /></WindowManagerProvider>);
+
+    await userEvent.pointer({ target: container.querySelector('.desktop')!, keys: '[MouseRight]' });
+    await userEvent.click(screen.getByRole('menuitem', { name: 'Arrange Icons' }));
+
+    expect(JSON.parse(localStorage.getItem('jo95:iconPositions')!)).toEqual({});
+  });
 });

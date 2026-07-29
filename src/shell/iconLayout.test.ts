@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { defaultPosition, loadPositions, savePosition } from './iconLayout';
+import { clearPositions, defaultPosition, loadPositions, savePosition } from './iconLayout';
 
 describe('iconLayout', () => {
   beforeEach(() => localStorage.clear());
@@ -22,5 +22,12 @@ describe('iconLayout', () => {
     savePosition('about', { x: 10, y: 20 });
     savePosition('terminal', { x: 200, y: 120 });
     expect(loadPositions()).toEqual({ about: { x: 10, y: 20 }, terminal: { x: 200, y: 120 } });
+  });
+
+  it('clears persisted positions so defaults apply after a reload', () => {
+    savePosition('about', { x: 10, y: 20 });
+    savePosition('terminal', { x: 200, y: 120 });
+    clearPositions();
+    expect(loadPositions()).toEqual({});
   });
 });

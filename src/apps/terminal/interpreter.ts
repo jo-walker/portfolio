@@ -7,6 +7,8 @@ export type CommandAction =
 export interface CommandResult {
   lines: string[];
   action?: CommandAction;
+  /** Unrecognised input — the caller turns this into an error beep. */
+  error?: boolean;
 }
 
 const NAV: Record<string, AppKey> = {
@@ -45,5 +47,5 @@ export function runCommand(input: string): CommandResult {
   if (cmd === 'sudo') return { lines: ['jo is not in the sudoers file. This incident will be reported.'] };
   if (cmd === 'exit') return { lines: ["Nice try — there's no escape from the 90s."] };
 
-  return { lines: [`Bad command or file name: ${cmd}`] };
+  return { lines: [`Bad command or file name: ${cmd}`], error: true };
 }

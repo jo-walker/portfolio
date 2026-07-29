@@ -2,11 +2,19 @@ import { useState } from 'react';
 import { useWindowManager } from '../window-manager/WindowManagerContext';
 import { StartMenu } from './StartMenu';
 import { Clock } from './Clock';
+import { isEnabled, setEnabled } from '../lib/sound';
 
 export function Taskbar() {
   const wm = useWindowManager();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [soundOn, setSoundOn] = useState(isEnabled);
   const { state } = wm;
+
+  const toggleSound = () => {
+    const next = !soundOn;
+    setEnabled(next); // this click is the user gesture that unlocks Web Audio
+    setSoundOn(next);
+  };
 
   const onTaskClick = (id: string) => {
     const w = state.windows.find((x) => x.id === id);
@@ -37,6 +45,15 @@ export function Taskbar() {
             </button>
           ))}
         </div>
+        <button
+          className="tray-button"
+          onClick={toggleSound}
+          aria-pressed={soundOn}
+          aria-label={soundOn ? 'Turn sound off' : 'Turn sound on'}
+          title={soundOn ? 'Sound on' : 'Sound off'}
+        >
+          <span aria-hidden>{soundOn ? '🔊' : '🔇'}</span>
+        </button>
         <Clock />
       </div>
     </>

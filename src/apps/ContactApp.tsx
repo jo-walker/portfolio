@@ -8,6 +8,7 @@ export function ContactApp() {
         <li>✉️ <a href={`mailto:${contact.email}`}>{contact.email}</a></li>
         <li>🔗 <a href={contact.linkedin} target="_blank" rel="noreferrer">LinkedIn</a></li>
         <li>🐙 <a href={contact.github} target="_blank" rel="noreferrer">GitHub</a></li>
+        <li>📷 <a href={contact.instagram} target="_blank" rel="noreferrer">Instagram</a></li>
       </ul>
     </div>
   );

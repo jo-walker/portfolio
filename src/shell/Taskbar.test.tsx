@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { WindowManagerProvider } from '../window-manager/WindowManagerContext';
@@ -32,5 +32,36 @@ describe('Taskbar', () => {
     render(<App />);
     await userEvent.click(screen.getByRole('button', { name: /start/i }));
     expect(screen.getByRole('menu')).toBeInTheDocument();
+  });
+
+  describe('sound toggle', () => {
+    beforeEach(() => localStorage.clear());
+
+    it('starts muted', () => {
+      render(<App />);
+      expect(screen.getByRole('button', { name: 'Turn sound on' })).toHaveAttribute(
+        'aria-pressed',
+        'false',
+      );
+    });
+
+    it('toggles and persists the preference', async () => {
+      render(<App />);
+      await userEvent.click(screen.getByRole('button', { name: 'Turn sound on' }));
+
+      const off = screen.getByRole('button', { name: 'Turn sound off' });
+      expect(off).toHaveAttribute('aria-pressed', 'true');
+      expect(localStorage.getItem('jo95:sound')).toBe('true');
+
+      await userEvent.click(off);
+      expect(screen.getByRole('button', { name: 'Turn sound on' })).toBeInTheDocument();
+      expect(localStorage.getItem('jo95:sound')).toBe('false');
+    });
+
+    it('reflects a previously saved preference on load', () => {
+      localStorage.setItem('jo95:sound', 'true');
+      render(<App />);
+      expect(screen.getByRole('button', { name: 'Turn sound off' })).toBeInTheDocument();
+    });
   });
 });

@@ -41,6 +41,7 @@ export interface WMState {
 export type WMAction =
   | { type: 'OPEN'; appKey: AppKey; title: string; icon: string; width: number; height: number; singleton?: boolean; props?: Record<string, unknown> }
   | { type: 'CLOSE'; id: string }
+  | { type: 'CLOSE_ALL' }
   | { type: 'FOCUS'; id: string }
   | { type: 'MINIMIZE'; id: string }
   | { type: 'TOGGLE_MAXIMIZE'; id: string }

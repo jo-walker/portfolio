@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { WindowManagerProvider, useWindowManager } from '../window-manager/WindowManagerContext';
 import { WelcomeApp } from './WelcomeApp';
+import { wallpaper } from '../data/contact';
 
 function Harness() {
   const wm = useWindowManager();
@@ -15,6 +16,13 @@ function Harness() {
 }
 
 describe('WelcomeApp', () => {
+  it('credits the wallpaper photo with a link to the original post', () => {
+    render(<WindowManagerProvider><WelcomeApp /></WindowManagerProvider>);
+    const link = screen.getByRole('link', { name: /original on Instagram/i });
+    expect(link).toHaveAttribute('href', wallpaper.source);
+    expect(link).toHaveAttribute('rel', 'noreferrer');
+  });
+
   it('greets the visitor', () => {
     render(<WindowManagerProvider><WelcomeApp /></WindowManagerProvider>);
     expect(screen.getByText(/Welcome to my desktop/i)).toBeInTheDocument();

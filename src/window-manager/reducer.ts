@@ -59,6 +59,8 @@ export function wmReducer(state: WMState, action: WMAction): WMState {
         state.focusedId === action.id ? topWindowId(windows.filter((w) => !w.minimized)) : state.focusedId;
       return { ...state, windows, focusedId };
     }
+    case 'CLOSE_ALL':
+      return { ...state, windows: [], focusedId: null };
     case 'FOCUS':
       return focusWindow(state, action.id);
     case 'MINIMIZE': {
