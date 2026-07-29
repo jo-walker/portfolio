@@ -1,6 +1,7 @@
 import { useState, useRef, type FormEvent } from 'react';
 import { useWindowManager } from '../../window-manager/WindowManagerContext';
 import { runCommand } from './interpreter';
+import { play } from '../../lib/sound';
 
 interface Line {
   id: number;
@@ -31,6 +32,7 @@ export function TerminalApp() {
     setValue('');
     push(`C:\\> ${entered}`, 'input');
     const result = runCommand(entered);
+    if (result.error) play('error');
     if (result.action?.type === 'clear') {
       setLines([]);
       return;

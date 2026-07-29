@@ -2,6 +2,7 @@ import { createContext, useContext, useReducer, useCallback, type ReactNode } fr
 import type { AppKey, WMState } from '../types';
 import { wmReducer, initialWMState } from './reducer';
 import { WINDOW_DEFAULTS } from '../apps/registry';
+import { play } from '../lib/sound';
 
 interface WindowManagerValue {
   state: WMState;
@@ -23,6 +24,7 @@ export function WindowManagerProvider({ children }: { children: ReactNode }) {
   const openApp = useCallback(
     (appKey: AppKey, props?: Record<string, unknown>, titleOverride?: string) => {
       const def = WINDOW_DEFAULTS[appKey];
+      play('open');
       dispatch({
         type: 'OPEN',
         appKey,
@@ -37,8 +39,14 @@ export function WindowManagerProvider({ children }: { children: ReactNode }) {
     [],
   );
 
-  const close = useCallback((id: string) => dispatch({ type: 'CLOSE', id }), []);
-  const closeAll = useCallback(() => dispatch({ type: 'CLOSE_ALL' }), []);
+  const close = useCallback((id: string) => {
+    play('close');
+    dispatch({ type: 'CLOSE', id });
+  }, []);
+  const closeAll = useCallback(() => {
+    play('close');
+    dispatch({ type: 'CLOSE_ALL' });
+  }, []);
   const focus = useCallback((id: string) => dispatch({ type: 'FOCUS', id }), []);
   const minimize = useCallback((id: string) => dispatch({ type: 'MINIMIZE', id }), []);
   const toggleMaximize = useCallback((id: string) => dispatch({ type: 'TOGGLE_MAXIMIZE', id }), []);

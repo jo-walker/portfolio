@@ -204,3 +204,11 @@ html, body, #root {
   color: #fff;
   outline: none;
 }
+
+/* ---- Taskbar tray ------------------------------------------------------- */
+.tray-button {
+  min-width: 0;
+  padding: 1px 6px;
+  font-size: 13px;
+  line-height: 1;
+}

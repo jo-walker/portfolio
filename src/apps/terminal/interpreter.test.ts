@@ -42,3 +42,15 @@ describe('runCommand', () => {
     expect(runCommand('   ')).toEqual({ lines: [] });
   });
 });
+
+describe('error flag', () => {
+  it('marks an unknown command as an error', () => {
+    expect(runCommand('solitaire').error).toBe(true);
+  });
+
+  it('does not mark known commands as errors', () => {
+    ['help', 'whoami', 'ls', 'clear', 'about', 'sudo', 'exit'].forEach((cmd) => {
+      expect(runCommand(cmd).error).toBeUndefined();
+    });
+  });
+});
