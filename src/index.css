@@ -1,5 +1,8 @@
 :root {
   --desktop-teal: #008080;
+  --confetti-pink: rgba(255, 105, 180, .30);
+  --confetti-cyan: rgba(0, 255, 255, .26);
+  --confetti-yellow: rgba(255, 221, 85, .24);
   --taskbar-h: 32px;
 }
 
@@ -10,11 +13,37 @@ html, body, #root {
   font-family: 'Pixelated MS Sans Serif', 'MS Sans Serif', Tahoma, sans-serif;
 }
 
+/* Teal base, a 90s Memphis confetti scatter, and a 2px dither checkerboard on
+   top — the artefact you'd get from a 256-colour palette. All CSS gradients:
+   no image to ship, nothing to go stale, and it scales to any screen. */
 .desktop {
   position: fixed;
   inset: 0 0 var(--taskbar-h) 0;
-  background: var(--desktop-teal);
   overflow: hidden;
+  background-color: var(--desktop-teal);
+  background-image:
+    /* dither */
+    repeating-conic-gradient(rgba(255, 255, 255, .05) 0% 25%, transparent 0% 50%),
+    /* confetti — each layer tiles at a different, deliberately non-multiple size
+       so their repeats never line up into a visible polka-dot grid */
+    radial-gradient(circle at 12% 22%, var(--confetti-pink) 0 5px, transparent 6px),
+    radial-gradient(circle at 78% 14%, var(--confetti-cyan) 0 4px, transparent 5px),
+    radial-gradient(circle at 88% 62%, var(--confetti-yellow) 0 6px, transparent 7px),
+    radial-gradient(circle at 34% 78%, var(--confetti-cyan) 0 3px, transparent 4px),
+    /* dashes and cross-hatches, for shapes that aren't all dots */
+    linear-gradient(56deg, transparent 0 18px, var(--confetti-yellow) 18px 30px, transparent 30px),
+    linear-gradient(-34deg, transparent 0 22px, var(--confetti-pink) 22px 32px, transparent 32px),
+    /* soft vignette so icon labels stay readable at the edges */
+    radial-gradient(ellipse at 50% 40%, #0a9b9b 0%, #006666 100%);
+  background-size:
+    4px 4px,
+    317px 271px, 419px 233px, 263px 397px, 487px 331px,
+    373px 289px, 449px 359px,
+    100% 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .desktop { transition: background-color .3s ease; }
 }
 
 .window {
