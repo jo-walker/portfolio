@@ -7,6 +7,7 @@ interface WindowManagerValue {
   state: WMState;
   openApp: (appKey: AppKey, props?: Record<string, unknown>, titleOverride?: string) => void;
   close: (id: string) => void;
+  closeAll: () => void;
   focus: (id: string) => void;
   minimize: (id: string) => void;
   toggleMaximize: (id: string) => void;
@@ -37,6 +38,7 @@ export function WindowManagerProvider({ children }: { children: ReactNode }) {
   );
 
   const close = useCallback((id: string) => dispatch({ type: 'CLOSE', id }), []);
+  const closeAll = useCallback(() => dispatch({ type: 'CLOSE_ALL' }), []);
   const focus = useCallback((id: string) => dispatch({ type: 'FOCUS', id }), []);
   const minimize = useCallback((id: string) => dispatch({ type: 'MINIMIZE', id }), []);
   const toggleMaximize = useCallback((id: string) => dispatch({ type: 'TOGGLE_MAXIMIZE', id }), []);
@@ -48,7 +50,7 @@ export function WindowManagerProvider({ children }: { children: ReactNode }) {
 
   return (
     <WindowManagerContext.Provider
-      value={{ state, openApp, close, focus, minimize, toggleMaximize, move, resize }}
+      value={{ state, openApp, close, closeAll, focus, minimize, toggleMaximize, move, resize }}
     >
       {children}
     </WindowManagerContext.Provider>

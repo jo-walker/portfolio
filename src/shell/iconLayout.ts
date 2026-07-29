@@ -21,3 +21,12 @@ export function savePosition(key: AppKey, point: Point): void {
   const next = { ...loadPositions(), [key]: point };
   storage.set(KEY, next);
 }
+
+/**
+ * Drop every persisted position so icons fall back to the default grid.
+ * Must clear storage, not just React state — otherwise a reload resurrects
+ * the old scattered layout.
+ */
+export function clearPositions(): void {
+  storage.set(KEY, {});
+}

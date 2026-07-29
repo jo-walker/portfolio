@@ -85,3 +85,16 @@ describe('wmReducer', () => {
     expect(s.focusedId).toBe('win-1');
   });
 });
+
+describe('CLOSE_ALL', () => {
+  it('removes every window and clears focus', () => {
+    let s = wmReducer(initialWMState, { type: 'OPEN', appKey: 'about', title: 'About Me', icon: '👤', width: 400, height: 300 });
+    s = wmReducer(s, { type: 'OPEN', appKey: 'contact', title: 'Contact', icon: '✉️', width: 400, height: 300 });
+    expect(s.windows).toHaveLength(2);
+
+    const closed = wmReducer(s, { type: 'CLOSE_ALL' });
+
+    expect(closed.windows).toEqual([]);
+    expect(closed.focusedId).toBeNull();
+  });
+});
