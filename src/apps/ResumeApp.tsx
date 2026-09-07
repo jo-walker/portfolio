@@ -1,18 +1,23 @@
+// The site is served from a sub-path (`base` in vite.config.ts), so a root-absolute
+// "/resume.pdf" resolves to the host root and 404s on GitHub Pages. BASE_URL carries
+// the trailing slash, so this stays correct wherever the site is mounted.
+const RESUME_URL = `${import.meta.env.BASE_URL}resume.pdf`;
+
 export function ResumeApp() {
   return (
     <div className="resume-app">
       <div className="resume-toolbar">
-        <a href="/resume.pdf" download="JoGurvantamir_Resume.pdf">
+        <a href={RESUME_URL} download="JoGurvantamir_Resume.pdf">
           <button>⬇ Download PDF</button>
         </a>
-        <a href="/resume.pdf" target="_blank" rel="noreferrer">
+        <a href={RESUME_URL} target="_blank" rel="noreferrer">
           <button>↗ Open in new tab</button>
         </a>
       </div>
-      <object data="/resume.pdf" type="application/pdf" className="resume-embed" aria-label="Résumé PDF">
+      <object data={RESUME_URL} type="application/pdf" className="resume-embed" aria-label="Résumé PDF">
         <p className="app-pad">
           Your browser can't display the embedded PDF.{' '}
-          <a href="/resume.pdf" download>Download it here.</a>
+          <a href={RESUME_URL} download>Download it here.</a>
         </p>
       </object>
     </div>
